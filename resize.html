@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="logo.png" alt="QuickSign Logo" class="h-8 mr-2">
+                <h1 class="text-xl font-bold">Image Resizer</h1>
+            </div>
+            <!-- End Logo -->
+        </div>
+    </header>
+    
+
+    <form id="upload-form" class="mb-4">
+        <input type="file" id="image-input" accept="image/*" class="p-2 rounded border">
+    </form>
+    <div id="image-container" class="mb-4">
+        <img id="uploaded-image" src="#" alt="Uploaded Image" class="max-w-full h-auto">
+    </div>
+    
+
+    <div class="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-2">
+        <button type="button" id="resize-button-instagram" class="btn-instagram btn-primary rounded-lg px-4 py-2">Instagram (1080x1080)</button>
+        <button id="resize-button-facebook" class="btn-facebook btn-danger rounded-lg px-4 py-2">Facebook (1200x630)</button>
+        <button id="resize-button-twitter" class="btn-twitter btn-success rounded-lg px-4 py-2">Twitter (1200x675)</button>
+        <button id="resize-button-website" class="btn-website btn-info rounded-lg px-4 py-2">Website (600x300)</button>
+    </div>
+
+    <script>
+        // Function to display the selected image
+        document.getElementById('image-input').addEventListener('change', function () {
+            const imageContainer = document.getElementById('image-container');
+            const uploadedImage = document.getElementById('uploaded-image');
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    uploadedImage.src = e.target.result;
+                    imageContainer.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                imageContainer.style.display = 'none';
+            }
+        });
+
+        // Function to resize the image to specific dimensions when a button is clicked
+        document.getElementById('resize-button-instagram').addEventListener('click', function () {
+            resizeImage(1080, 1080);
+        });
+
+        document.getElementById('resize-button-facebook').addEventListener('click', function () {
+            resizeImage(1200, 630);
+        });
+
+        document.getElementById('resize-button-twitter').addEventListener('click', function () {
+            resizeImage(1200, 675);
+        });
+
+        document.getElementById('resize-button-website').addEventListener('click', function () {
+            resizeImage(600, 300);
+        });
+
+        // Function to resize the image
+        function resizeImage(width, height) {
+            const uploadedImage = document.getElementById('uploaded-image');
+
+            // Set the width and height of the image
+            uploadedImage.width = width;
+            uploadedImage.height = height;
+        }
+    </script>
+</body>
+
+</html>
